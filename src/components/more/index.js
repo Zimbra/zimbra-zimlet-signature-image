@@ -3,6 +3,9 @@ import { useContext, useCallback } from 'preact/hooks';
 import { IntlContext } from 'preact-i18n';
 import { compose } from 'recompose';
 import { withIntl } from '../../enhancers';
+//import dompurify from 'dompurify';
+
+//dompurify shim is not released yet...
 
 function createMore(props, context) {
    const { intl } = useContext(IntlContext);
@@ -12,20 +15,28 @@ function createMore(props, context) {
    }, [props, context, zimletStrings]);
 
    if (props.editorType === 'signature') {
-      return (<span><input type="file" title={zimletStrings.menuItem} name="signatureImageFileInput" id="signatureImageFileInput" class="zimbra-zimlet-signature-image" onChange={insertImageHandler} accept="image/gif, image/jpeg, image/png" /></span>);
+      return (<span><input type="file" title={zimletStrings.menuItem} name="signatureImageFileInput" class="zimbra-zimlet-signature-image" onChange={insertImageHandler} accept="image/gif, image/jpeg, image/png" /></span>);
    }
 }
 
 function insertImage(props, context, zimletStrings) {
-   let file = window.parent.document.getElementById('signatureImageFileInput').files[0];
-   window.parent.document.getElementById('signatureImageFileInput').value=""; //In case the user re-tries the same image, we want the onChange to fire.
+   let fileInputs = window.parent.document.getElementsByClassName('zimbra-zimlet-signature-image');//.files[0];
+   let file;
+   for (var i = 0; i < fileInputs.length; i++) {
+      if(fileInputs[i].files.length > 0)
+      {
+         file = fileInputs[i].files[0];
+      }
+   }
    var reader = new FileReader();
    reader.readAsDataURL(file);
-   reader.onload = function () {
+   reader.onloadend = function () {
       let content = props.getComposer().getContent();
-      console.log(content);
-      props.getComposer().setContent(content + '<img src="' + reader.result + '">');
-      console.log(reader.result);
+      //props.getComposer().setContent(dompurify.sanitize(content) + '<img src="' + dompurify.sanitize(reader.result) + '">');
+      props.getComposer().setContent(content + '<img src="' +reader.result + '">');
+      for (var i = 0; i < fileInputs.length; i++) {
+         fileInputs[i].value=""; //In case the user re-tries the same image, we want the onChange to fire.
+      }
    }
 }
 
