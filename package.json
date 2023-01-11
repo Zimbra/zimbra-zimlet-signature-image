@@ -1,0 +1,29 @@
+{
+  "private": true,
+  "name": "zimbra-zimlet-signature-image",
+  "version": "0.0.1",
+  "license": "MIT",
+  "description": "Add an image to a signature via preferences.",
+  "label": "Images in signatures",
+  "main": "build/index.js",
+  "module": "src/index.js",
+  "scripts": {
+    "build": "zimlet build",
+    "watch": "zimlet watch",
+    "start": "zimlet watch",
+    "package": "zimlet package --name \"$npm_package_name\" --description \"$npm_package_description\" --label \"$npm_package_label\" --pkg-version $npm_package_version --zimbraXVersion '^4.0.0'",
+    "lint": "npx eslint src",
+    "lint:fix": "npm run lint -- --fix",
+    "security:audit": "npx audit-ci --moderate --report-type summary --pass-enoaudit"
+  },
+  "keywords": [
+    "zimlet",
+    "Zimbra"
+  ],
+  "devDependencies": {
+    "@zimbra/zimlet-cli": "^14.2.0"
+  },
+  "dependencies": {
+    "@zimbra/x-ui": "^5.3.0"
+  }
+}
