@@ -2,7 +2,7 @@
   "private": true,
   "name": "zimbra-zimlet-signature-image",
   "version": "0.0.1",
-  "license": "MIT",
+  "license": "BSD-3",
   "description": "Add an image to a signature via preferences.",
   "label": "Images in signatures",
   "main": "build/index.js",
@@ -21,9 +21,7 @@
     "Zimbra"
   ],
   "devDependencies": {
-    "@zimbra/zimlet-cli": "^14.2.0"
+    "@zimbra/zimlet-cli": "^14.3.0"
   },
-  "dependencies": {
-    "@zimbra/x-ui": "^5.3.0"
-  }
+  "dependencies": {}
 }
