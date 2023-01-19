@@ -1,6 +1,10 @@
 {
 	"zimbra-zimlet-signature-image": {
 		"menuItem": "Insert image"
+	},
+	"zimlet": {
+		"label": "Images in signatures",
+		"description": "Add an image to a signature via preferences."
 	}
 }
 
